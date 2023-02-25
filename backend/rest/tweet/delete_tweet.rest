@@ -1,0 +1,2 @@
+DELETE  http://localhost:5000/api/tweet/63f9874f4095f0ce494ce3db HTTP/1.1
+Content-Type: application/json

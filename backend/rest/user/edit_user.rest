@@ -1,0 +1,7 @@
+POST http://localhost:5000/api/edit_user/63f5c62ccc5f492375671a2c HTTP/1.1
+Content-Type: application/json
+
+{
+  "name":"Rock",
+  "location":"Diu"
+}
