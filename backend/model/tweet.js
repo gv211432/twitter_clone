@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const tweetSchema = mongoose.Schema({
   content: String,
   tweetedBy: { type: mongoose.Types.ObjectId, $ref: "users" },
+  tweetedByUsername: String,
   likes: [{ type: mongoose.Types.ObjectId, $ref: "users" }],
   retweetedBy: [{ type: mongoose.Types.ObjectId, $ref: "users" }],
   image: [{ type: String }],

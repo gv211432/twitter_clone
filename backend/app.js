@@ -17,6 +17,7 @@ var indexRouter = require('./routes/index');
 var helloRouter = require('./routes/hello');
 var registerRouter = require('./routes/auth/register');
 var loginRouter = require('./routes/auth/login');
+var logoutRouter = require('./routes/auth/logout');
 var uploadRouter = require('./routes/user/upload');
 
 // apis for user
@@ -35,6 +36,7 @@ var likeTweetRouter = require('./routes/tweet/like_tweet');
 var replyTweetRouter = require('./routes/tweet/reply');
 var retweetRouter = require('./routes/tweet/retweet');
 var tweetRouter = require('./routes/tweet/tweet');
+const session_validator = require("./middleware/auth");
 
 var app = express();
 app.use(cors({
@@ -66,11 +68,15 @@ app.use(session({
 }));
 app.use(passport.authenticate('session'));
 
+// adding custom session validator
+app.use(session_validator)
+
 // mounting all routes
 app.use('/', indexRouter);
 app.use('/', helloRouter);
 app.use('/api', registerRouter);
 app.use('/api', loginRouter);
+app.use('/api', logoutRouter);
 app.use('/api', uploadRouter);
 
 app.use('/api', editUserRouter);

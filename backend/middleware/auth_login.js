@@ -37,9 +37,10 @@ passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
     cb(null, {
       id: user.id,
+      name: user.name,
       username: user.username,
       email: user.email,
-      dob: user.date_of_birth,
+      date_of_birth: user.date_of_birth,
       password: user.passport,
       location: user.location,
       following: user.following,

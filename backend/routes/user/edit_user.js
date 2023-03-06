@@ -11,15 +11,28 @@ router.post('/edit_user/:id', async (req, res, next) => {
   } = req.body;
   const user_id = req.session.passport.user.id;
 
-  // updating a user
+  console.log({
+    name: name,
+    date_of_birth: date_of_birth,
+    location: location
+  });
+  // updating a user record
   const update_user = await user.updateOne({ _id: user_id },
     {
       name: name,
       date_of_birth: date_of_birth,
       location: location
     });
+  console.log(update_user);
 
-  if (update_user) {
+  // updating the current user session data before response
+  if (update_user.modifiedCount) {
+    req.session.passport.user = {
+      ...req.session.passport.user,
+      name: name,
+      date_of_birth: date_of_birth,
+      location: location
+    };
     return res.status(200).json({
       msg: "Successfully updated.."
     });

@@ -9,6 +9,7 @@ router.post('/tweet', async (req, res, next) => {
     img_urls // []
   } = req.body;
   const user_id = req.session.passport.user.id;
+  const user_name = req.session.passport.user.username;
 
   // making sure all required data is valid before creating a user
   if (!content && (!img_urls || !img_urls.length)) {
@@ -19,13 +20,15 @@ router.post('/tweet', async (req, res, next) => {
 
   const result = await tweet.create({
     tweetedBy: user_id,
+    tweetedByUsername: user_name,
     content: content,
     image: img_urls,
   });
-
+  // console.log(JSON.stringify(result));
   if (result) {
     return res.status(200).json({
-      msg: "Successfully inserted.."
+      msg: "Successfully inserted..",
+      data: { ...JSON.parse(JSON.stringify(result)), user: [req.session.passport.user] }
     });
   } else {
     return res.status(203).json({

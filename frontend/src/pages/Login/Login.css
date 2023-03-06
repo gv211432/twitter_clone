@@ -1,0 +1,29 @@
+.main-box {
+  /* padding: 1rem; */
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 10px 14px 38px -20px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 14px 38px -20px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 14px 38px -20px rgba(0, 0, 0, 0.75);
+}
+
+/* .logo-part {
+  border-radius: 0.5rem 0 0 0.5rem;
+} */
+
+@media screen and (max-width: 990px) {
+  .logo-part {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+}
+/* @media screen and (min-width: 1000px) {
+  .main-box {
+    border-radius: 0.5rem 0.5rem 0 0;
+    width: 90%;
+  }
+} */
+/* @media screen and (min-width: 1400px) {
+  .main-box {
+    border-radius: 0.5rem;
+    width: 70%;
+  }
+} */

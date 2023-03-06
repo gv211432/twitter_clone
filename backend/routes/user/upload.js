@@ -30,7 +30,7 @@ const uploadFiles = async (req, res) => {
 // this function handles the upload requestfor users profile pic
 const uploadUserImg = async (req, res) => {
   // const user_id = req.session.passport.user.id;
-  const user_id = req.params.id;
+  const user_id = req.session.passport.user.id;
   try {
     await uploadFilesMiddleware(req, res); // this middleware handles upload
     console.log(req.file);
@@ -129,7 +129,7 @@ const uploadController = {
 };
 
 router.post("/user/upload", uploadController.uploadFiles);
-router.post("/user/:id/uploadProfilePic", uploadController.uploadUserImg);
+router.post("/user/uploadProfilePic", uploadController.uploadUserImg);
 router.get("/user/files", uploadController.getListFiles);
 router.get("/user/files/:name", uploadController.download);
 
