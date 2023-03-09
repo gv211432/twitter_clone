@@ -13,12 +13,28 @@ const SliderSidebar = ({ setIsLoggedIn }) => {
     const res = axiosInstance.post("/api/auth/logout");
     res.then(() => {
       setIsLoggedIn(false);
+      navigate("/");
     });
   };
   return (
     <div className="offcanvas offcanvas-start" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
       <div className="offcanvas-header">
-        <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">Twitter Clone</h5>
+        <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+          <Row
+            className=' pb-3'
+          // style={{ width: "3rem", padding: "0.4rem", textAlign: "center" }}
+          >
+            <span>
+              <FontAwesomeIcon
+                width={60}
+                height={60}
+                icon="fa-solid fa-message"
+                className='text-light pe-2'
+              />
+              Twitter Clone
+            </span>
+          </Row>
+        </h5>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div className="row" style={{ justifyContent: "center" }}>
@@ -31,15 +47,7 @@ const SliderSidebar = ({ setIsLoggedIn }) => {
         >
         </div>
       </div>
-      <div className="offcanvas-body" style={{ marginTop: "-4rem" }}>
-        <div
-          className=' pb-3'
-          style={{ width: "3rem", padding: "0.4rem", textAlign: "center" }}>
-          <FontAwesomeIcon
-            icon="fa-solid fa-message"
-            className='text-light'
-          />
-        </div>
+      <div className="offcanvas-body" style={{ marginTop: "1rem" }}>
         <Button className='btn-primary mt-3'
           onClick={() => { navigate("/"); }}
           style={{ fontSize: "1rem", width: "100%", borderRadius: "1.2rem" }}>

@@ -13,13 +13,15 @@ import Modal from 'react-bootstrap/Modal';
 import axiosInstance from '../../helpers/axiosInstance';
 import { useParams } from 'react-router-dom';
 
-const TweetPage = () => {
+const TweetPage = ({ setIsLoggedIn }) => {
   const params = useParams();
   const [privateView, setPrivateView] = useState(true);
+  const [userDetails, setUserDetails] = useState(null);
   const [showUploadPic, setShowUploadPic] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
   const rightWindowRef = useRef();
   const [rightWindowWidth, setRigthWindowWidth] = useState(0);
+  const [currTweetData, setCurrTweetData] = useState(null);
 
   // this will trigger on window resize
   window.onresize = () => {
@@ -28,14 +30,26 @@ const TweetPage = () => {
     }
   };
 
+  // this check the login status of the user
+  const checkLoginStatus = async () => {
+    const res = await axiosInstance.get("/api/user/own");
+    if (res.status == 200) {
+      setIsLoggedIn(true);
+      setUserDetails(res?.data?.data);
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
+
   const fetchData = async () => {
     const res = await axiosInstance.get(`/api/tweet/${params.id}`);
     if (res.status == 200) {
-      alert(JSON.stringify(res?.data));
+      setCurrTweetData(res?.data?.data[0]);
     }
   };
 
   useEffect(() => {
+    checkLoginStatus();
     fetchData();
   }, []);
 
@@ -79,23 +93,36 @@ const TweetPage = () => {
                     />
                     <Col />
                   </Button>
-                  Tweet {params.id}
+                  Tweet
                 </Col>
               </Row>
               <br />
-              <br />
-              <Tweet />
+              <Row className='mt-3 pt-3' />
+              {/* <Tweet /> */}
+              <Tweet
+                key={currTweetData?._id}
+                data={currTweetData}
+                userDetails={userDetails}
+              />
               <Row>
                 <span className='fs-5 fw-bold'>Relpies</span>
               </Row>
-              <Tweet />
+              {currTweetData?.reply_arr?.map((data, i) => {
+                return <Tweet
+                  key={data?._id}
+                  data={data}
+                  userDetails={userDetails}
+                  isDelete={data?.tweetedBy == userDetails?.id}
+                />;
+              })}
+              {/* <Tweet />
               <Tweet isDelete />
               <Tweet />
               <Tweet isDelete />
               <Tweet />
               <Tweet isDelete />
               <Tweet />
-              <Tweet isDelete />
+              <Tweet isDelete /> */}
 
             </Col>
           </Row>

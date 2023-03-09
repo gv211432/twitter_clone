@@ -37,7 +37,7 @@ const Home = ({ setIsLoggedIn }) => {
     if (res.status == 200) {
       setIsLoggedIn(true);
       setUserDetails(res?.data?.data);
-      toast("Already logged in...");
+      // toast("Already logged in...");
     } else {
       setIsLoggedIn(false);
     }
@@ -105,7 +105,6 @@ const Home = ({ setIsLoggedIn }) => {
                 </Button>
                 Home
               </Col>
-              <Col className='mx-auto col-md-3' />
               <Col className=' ml-auto col-auto'>
                 <Button className='btn-primary ps-4 pe-4'
                   onClick={handleNewTweet}
@@ -117,7 +116,7 @@ const Home = ({ setIsLoggedIn }) => {
             {allTweets?.map((data, index) => {
               return <Tweet
                 key={data?._id}
-                isDelete={data?.user[0]._id == userDetails.id}
+                isDelete={data?.user[0]?._id == userDetails?.id}
                 data={data}
                 userDetails={userDetails}
                 setAllTweets={setAllTweets}

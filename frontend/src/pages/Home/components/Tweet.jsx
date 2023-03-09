@@ -8,7 +8,8 @@ import config from '../../../config';
 import axiosInstance from '../../../helpers/axiosInstance';
 import NewTweetModal from './NewTweetModal';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import "./Tweet.css";
 
 const Tweet = ({ isDelete, data, userDetails, setAllTweets }) => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Tweet = ({ isDelete, data, userDetails, setAllTweets }) => {
   const [tweetData, setTweetData] = useState(data);
   const [liked, setLiked] = useState(tweetData?.likes?.includes(userDetails?.id) || false);
   const [commented, setCommented] = useState(tweetData?.replies?.includes(userDetails?.id) || false);
+  const [reTweeted, setReTweedted] = useState(tweetData?.retweetedBy?.includes(userDetails?.id) || false);
 
   // this function will update the latest data on tweet
   const updateTweetData = async () => {
@@ -47,7 +49,17 @@ const Tweet = ({ isDelete, data, userDetails, setAllTweets }) => {
   const handleTweetComment = async () => {
     setShowTweetModal(true);
   };
-  const handleTweetRetweet = async () => { };
+  const handleTweetRetweet = async () => {
+    if (!reTweeted) {
+      const res = await axiosInstance.post(`/api/tweet/${tweetData?._id}/retweet`);
+      if (res.status) {
+        toast("Retweeted successfully");
+        setTweetData(p => ({ ...p, retweetedBy: [...p?.retweetedBy, userDetails?._id] }));
+      }
+    } else {
+      toast("Already retweed!");
+    };
+  };
   const handleTweetDetailsOpen = async () => {
     navigate(`/tweet/${tweetData?._id}`);
   };
@@ -80,7 +92,12 @@ const Tweet = ({ isDelete, data, userDetails, setAllTweets }) => {
           </div>
           <Row style={{ fontSize: "1rem" }}>
             <span>
-              <span className='fw-bold text-dark'>@{tweetData?.tweetedByUsername || "Anonymous"}</span> - <span
+              <NavLink className={"tweet_username"} to={`/profile/${tweetData?.tweetedBy}`}>
+                <span className='fw-bold text-dark tweet_username'>
+                  @{tweetData?.tweetedByUsername + " " || "Anonymous "}
+                </span>
+              </NavLink>
+              - <span
                 className='text-muted'
                 style={{ fontSize: "0.95rem" }}>{new Date(tweetData?.createdAt).toString().substring(0, 16)}</span>
               {isDelete ? <span
@@ -98,11 +115,11 @@ const Tweet = ({ isDelete, data, userDetails, setAllTweets }) => {
                 /></span> : null}
             </span>
           </Row>
-          <Row className='ml-auto lh-0 p-2' onClick={handleTweetDetailsOpen}
+          <Row className='ml-auto lh-0 p-2' style={{ cursor: "pointer" }} onClick={handleTweetDetailsOpen}
           >
             {tweetData?.content || "No tweetData!!"}
           </Row>
-          <Row className='ml-auto lh-0' onClick={handleTweetDetailsOpen}
+          <Row className='ml-auto lh-0' style={{ cursor: "pointer" }} onClick={handleTweetDetailsOpen}
           >
             {tweetData?.image?.length ? <img className='img-fluid'
               style={{
@@ -142,7 +159,6 @@ const Tweet = ({ isDelete, data, userDetails, setAllTweets }) => {
                   icon="fa-solid fa-retweet"
                   className='text-success '
                   style={{ cursor: "pointer" }}
-
                 />
               </div>
               <span className='ps-1 pt-1 pe-3' >{tweetData?.retweetedBy?.length}</span>

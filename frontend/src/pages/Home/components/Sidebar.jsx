@@ -14,6 +14,7 @@ const Sidebar = ({ setIsLoggedIn }) => {
     const res = axiosInstance.post("/api/auth/logout");
     res.then(() => {
       setIsLoggedIn(false);
+      navigate("/");
     });
   };
   return (

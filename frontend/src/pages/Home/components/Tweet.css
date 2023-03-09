@@ -1,0 +1,9 @@
+.tweet_username {
+  color: black;
+  text-decoration: none !important;
+}
+
+.tweet_username:hover {
+  color: blue;
+  text-decoration: underline !important;
+}

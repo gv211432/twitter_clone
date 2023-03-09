@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import axiosInstance from './helpers/axiosInstance';
 import { toast } from 'react-toastify';
 import TweetPage from './pages/Tweet/Tweet';
+import OthersProfile from './pages/Profile/OthersProfile';
 config.autoAddCss = false;
 library.add(far, fas);
 
@@ -48,6 +49,12 @@ function App() {
           {isLoggedIn ? <Home setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />}
         </>
       ),
+    },
+    {
+      path: "/profile/:id",
+      element: <>
+        <OthersProfile setIsLoggedIn={setIsLoggedIn} />
+      </>
     },
     {
       path: "/profile",
