@@ -21,6 +21,7 @@ import axiosInstance from './helpers/axiosInstance';
 import { toast } from 'react-toastify';
 import TweetPage from './pages/Tweet/Tweet';
 import OthersProfile from './pages/Profile/OthersProfile';
+import UserContext from './context/userContext';
 config.autoAddCss = false;
 library.add(far, fas);
 
@@ -83,13 +84,21 @@ function App() {
     },
   ]);
 
-  return (<div
-    style={{
-      width: "100%",
-      overflow: "hidden"
-    }}>
-    <RouterProvider router={router} />
-  </div>
+  return (
+    <UserContext.Provider
+      value={{
+        userDetails, setUserDetails,
+        isLoggedIn, setIsLoggedIn
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          overflow: "hidden"
+        }}>
+        <RouterProvider router={router} />
+      </div>
+    </UserContext.Provider>
   );
 }
 

@@ -18,7 +18,8 @@ const NewTweetModal = ({ showTweetModal, setShowTweetModal,
 
   const resetNewTweetModal = () => {
     // this function resets data present in new tweet window
-    document.getElementById("input_img_files").value = "";
+    const img_files = (document.getElementById("input_img_files"));
+    img_files.value = "";
     setSelecteTweetImg(null);
     setTweetContent("");
   };
@@ -47,9 +48,9 @@ const NewTweetModal = ({ showTweetModal, setShowTweetModal,
         console.log(tweet_res);
 
         if (tweet_res.status == 200) {
-          toast("Successfully tweeted..");
           resetNewTweetModal();
           setAllTweets(p => [tweet_res?.data?.data, ...p]);
+          toast("Successfully tweeted..");
         }
       }
     } else {

@@ -16,6 +16,7 @@ import Calendar from 'moedim';
 import styled from 'styled-components';
 import axiosInstance from '../../helpers/axiosInstance';
 import config from '../../config';
+import { useNavigate } from 'react-router-dom';
 
 const StyledCalendar = styled(Calendar)`
   font-size: 1rem !important;
@@ -34,6 +35,7 @@ const Profile = ({ setIsLoggedIn }) => {
   const [rightWindowWidth, setRigthWindowWidth] = useState(0);
   const [imgFile, setImgFile] = useState(null);
   const [selecteUserImg, setSelecteUserImg] = useState(null);
+  const navigate = useNavigate();
 
   const resetUserProfilePic = () => {
     // this function resets data present in new tweet window
@@ -54,6 +56,9 @@ const Profile = ({ setIsLoggedIn }) => {
       if (res.status == 200) {
         toast("User profile set successfully..");
         resetUserProfilePic();
+      }else{
+        setIsLoggedIn(false)
+        navigate("/")
       }
     }
   };
@@ -148,7 +153,7 @@ const Profile = ({ setIsLoggedIn }) => {
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       backgroundImage: profileDetails?.profile_pic_url ? `url("${config.baseURI}/api/user/files/${profileDetails?.profile_pic_url}")`
-                        : `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6qINZFwU7hzkmDwMnOp4_-GnUmtocMjBcRw&usqp=CAU")`
+                        : `url("https://th.bing.com/th/id/OIP.muQNuK_IB08mkrHJGc2dPQHaHa?w=173&h=180&c=7&r=0&o=5&dpr=1.6&pid=1.7")`
                       // `url(data:image/png;base64,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)`
                       // backgroundImage: `url("https://thumbs.dreamstime.com/b/cartoon-badger-basketball-illustration-playing-47478150.jpg")`
                     }}
@@ -182,10 +187,10 @@ const Profile = ({ setIsLoggedIn }) => {
                     <Col className='col-auto'>
                       <br />
                       <span className='fs-5 fw-bold'>
-                        {profileDetails?.name}
+                        {profileDetails?.name || "No name!"}
                       </span>
                       <br />
-                      @{profileDetails?.username}
+                      @{profileDetails?.username || "No username!!"}
                     </Col>
                     <Col className=''>
                     </Col>
@@ -198,7 +203,7 @@ const Profile = ({ setIsLoggedIn }) => {
                           height={33}
                           icon="fa-solid fa-cake-candles"
                           className='text-dark pe-2'
-                        />{profileDetails?.date_of_birth}
+                        />{profileDetails?.date_of_birth || "No Date of Birth!!"}
                       </span><br />
                       <span><FontAwesomeIcon
                         width={33}
@@ -213,7 +218,7 @@ const Profile = ({ setIsLoggedIn }) => {
                         height={33}
                         icon="fa-solid fa-location-dot"
                         className='text-dark pe-2'
-                      />{profileDetails?.location}
+                      />{profileDetails?.location || "No Location!!"}
                     </Col>
                   </Row>
                   <Row className='pt-3 pb-2'>

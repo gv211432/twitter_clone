@@ -55,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: process.env.SESSION_SECRET || "secret",
   cookie: {
-    maxAge: 1000 * 60 * 10, // 10 min
+    maxAge: 1000 * 60 * 60, // 60 min
     secure: false,
   },
   resave: false,

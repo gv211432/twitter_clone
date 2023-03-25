@@ -121,7 +121,8 @@ const Tweet = ({ isDelete, data, userDetails, setAllTweets }) => {
           </Row>
           <Row className='ml-auto lh-0' style={{ cursor: "pointer" }} onClick={handleTweetDetailsOpen}
           >
-            {tweetData?.image?.length ? <img className='img-fluid'
+            {tweetData?.image?.length ? <img
+              className='img-fluid'
               style={{
                 maxHeight: "500px",
                 minHeight: "80px",
