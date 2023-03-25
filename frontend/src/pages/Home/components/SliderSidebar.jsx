@@ -8,16 +8,18 @@ import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../../helpers/axiosInstance';
 import UserContext from '../../../context/userContext';
 import config from '../../../config';
+import { toast } from 'react-toastify';
 
 const SliderSidebar = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const { userDetails } = useContext(UserContext);
 
   const handleLogout = async (e) => {
+    setIsLoggedIn(false);
+    navigate("/");
     const res = axiosInstance.post("/api/auth/logout");
     res.then(() => {
-      setIsLoggedIn(false);
-      navigate("/");
+      toast("Logged out.....")
     });
   };
 

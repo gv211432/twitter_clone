@@ -9,15 +9,17 @@ import axiosInstance from '../../../helpers/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../../context/userContext';
 import config from '../../../config';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Sidebar = ({ setIsLoggedIn }) => {
   const { userDetails } = useContext(UserContext);
   const navigate = useNavigate();
   const handleLogout = async (e) => {
+    setIsLoggedIn(false);
+    navigate("/");
     const res = axiosInstance.post("/api/auth/logout");
     res.then(() => {
-      setIsLoggedIn(false);
-      navigate("/");
+      toast("Logged out....");
     });
   };
   return (
@@ -27,7 +29,7 @@ const Sidebar = ({ setIsLoggedIn }) => {
           // border: "2px solid black",
           position: "relative"
         }}
-      >
+      ><ToastContainer />
         <Row
           className='p-1 pt-3'
         // style={{ width: "3rem", padding: "0.4rem", textAlign: "center" }}
@@ -37,7 +39,7 @@ const Sidebar = ({ setIsLoggedIn }) => {
               width={60}
               height={60}
               icon="fa-solid fa-message"
-              className='text-light pe-2'
+              className='text-primary pe-2'
             />
             <span className='d-md-none d-lg-inline'>
               Twitter Clone
@@ -110,18 +112,17 @@ const Sidebar = ({ setIsLoggedIn }) => {
                 onClick={() => {
                   navigate("/profile");
                 }}              >
-                <img
+                <FontAwesomeIcon
                   width={40}
                   height={40}
                   icon="fa-solid fa-circle-user"
-                  className='text-dark rounded-circle me-2'
-                  src={`${config.baseURI}/api/user/files/${userDetails?.profile_pic_url}`}
+                  className='text-dark me-2'
                 />
                 <span style={{ textAlign: "left" }} className="pt-1">
-                  <span className='ps-1 text-dark' >{userDetails?.name}</span>
+                  <span className='ps-1 text-dark' >{userDetails?.name || "No name!!"}</span>
                   <br />
                   <span className='text-dark ps-1 pt-1 text-muted' style={{ fontSize: "0.8rem", textAlign: "left" }}>
-                    @{userDetails?.username}
+                    @{userDetails?.username || "No username!!"}
                   </span>
                 </span>
               </div>

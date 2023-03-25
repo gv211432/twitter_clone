@@ -1,0 +1,37 @@
+┏━╸┏━┓┏┓╻┏━╸┏━╸┏━┓╺┳╸   ┏┓╻┏━┓╺┳╸┏━╸┏━┓
+┃  ┃ ┃┃┗┫┃  ┣╸ ┣━┛ ┃    ┃┗┫┃ ┃ ┃ ┣╸ ┗━┓
+┗━╸┗━┛╹ ╹┗━╸┗━╸╹   ╹ ╺━╸╹ ╹┗━┛ ╹ ┗━╸┗━┛
+
+            *** Twitter Clone ***
+
+This project is based on the specifications provided for the 
+Capstone 2 project ie. Social Media App(Twitter Clone)
+
+1. Speaking about its authentication, it is based on passport js,
+jwt, and express session. This approach is a hybrid approach where
+jwt token is stored as session string on client machine. This provides 
+ease of access and sharing of jwt tokens instead of sharing in headers as 
+authorization and bearer. These jwt are using public/private certificates 
+and session is using session secrets.
+
+2. Local database of mongodb is used for storing the data generated during 
+the operation of this app. All secret data is mentioned in .env file. This 
+.env file will also be upload to repo in last commit for ease of use.
+
+3. Many db models are created for accessing the database through the mongoose.
+
+4. Backend uses nodejs and other packages for handling the requests.
+
+5. There are some rest files for checkig the working of apis. For using this
+vscode rest extension must be installed. It is an easy and direct alternative 
+of postman.
+
+6. In the frontend, src folder contains all the unique source code for 
+this project. This frontend is based on reactjs. Being a small project
+there was no need for redux, however global context api was used for 
+sharing data across the app.
+
+7. Pages folder contains all the pages present on the screen, and all this
+pages have their own components.
+
+8. All the relevent comments are added where ever was necessary.

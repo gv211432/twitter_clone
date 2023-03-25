@@ -13,6 +13,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 
+// this is the login screen, it will be presented when user is not logged
 const Login = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
@@ -43,6 +44,7 @@ const Login = ({ setIsLoggedIn }) => {
 
   return (
     <Container className='ms-auto'>
+      <ToastContainer />
       <Row className='main-box mx-auto' style={{ marginTop: "4rem" }}>
         <Col
           className='bg-primary col-12 col-sm-12 col-lg-4 logo-part'
@@ -104,9 +106,7 @@ const Login = ({ setIsLoggedIn }) => {
           <br />
         </Col>
       </Row>
-      <ToastContainer />
     </Container>
-
   );
 };
 

@@ -47,6 +47,7 @@ const Home = ({ setIsLoggedIn }) => {
     setShowTweetModal(true);
   };
 
+  // fetches the data of all tweets
   const fetchData = async () => {
     const res = await axiosInstance.get("/api/tweet");
     if (res.status == 200) {
@@ -54,6 +55,7 @@ const Home = ({ setIsLoggedIn }) => {
     }
   };
 
+  // triggers on first load.
   useEffect(() => {
     checkLoginStatus();
     fetchData();
@@ -131,6 +133,7 @@ const Home = ({ setIsLoggedIn }) => {
         setAllTweets={setAllTweets}
         title={"New Tweet"}
       />
+      <ToastContainer />
     </>
   );
 };

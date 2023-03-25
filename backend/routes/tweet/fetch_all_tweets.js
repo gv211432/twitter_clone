@@ -15,12 +15,25 @@ router.get('/tweet', async (req, res) => {
       },
     },
     {
+      $lookup: {
+        from: "users",
+        localField: "retweetedBy",
+        foreignField: "_id",
+        as: "retweet_user",
+      },
+    },
+    {
       $project: {
         "user.password": 0,
         "user.email": 0,
         "user.createdAt": 0,
         "user.updatedAt": 0,
         "user.__v": 0,
+        "retweet_user.password": 0,
+        "retweet_user.email": 0,
+        "retweet_user.createdAt": 0,
+        "retweet_user.updatedAt": 0,
+        "retweet_user.__v": 0,
       }
     }
   ]).sort({ createdAt: -1 });

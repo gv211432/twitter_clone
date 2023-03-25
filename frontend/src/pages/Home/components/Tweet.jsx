@@ -77,7 +77,7 @@ const Tweet = ({ isDelete, data, userDetails, setAllTweets }) => {
           />
         </Col>
         <Col className='ml-auto lh-2 p-1'>
-          <div className='d-flex ps-n1'>
+          {tweetData?.retweet_user?.length && tweetData?.retweet_user[0]?.name && <div className='d-flex ps-n1'>
             <FontAwesomeIcon
               width={25}
               height={25}
@@ -87,9 +87,9 @@ const Tweet = ({ isDelete, data, userDetails, setAllTweets }) => {
             />
             <span className='ps-1 pe-3 pt-1 text-muted'
               style={{ fontSize: "0.8rem" }}
-            >{"Retweeted by Ram"}
+            >{`Retweeted by ${tweetData?.retweet_user[0]?.name}`}
             </span>
-          </div>
+          </div>}
           <Row style={{ fontSize: "1rem" }}>
             <span>
               <NavLink className={"tweet_username"} to={`/profile/${tweetData?.tweetedBy}`}>
